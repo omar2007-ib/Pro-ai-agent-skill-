@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "skills/**"
+      - "README.md"
+      - "docs/DAILY_BUILD_LOG.md"
       - "scripts/validate_agent_skills.py"
       - "scripts/test_validate_agent_skills.py"
       - ".github/workflows/validate-agent-skills.yml"
@@ -12,6 +14,8 @@ on:
     branches: [main]
     paths:
       - "skills/**"
+      - "README.md"
+      - "docs/DAILY_BUILD_LOG.md"
       - "scripts/validate_agent_skills.py"
       - "scripts/test_validate_agent_skills.py"
       - ".github/workflows/validate-agent-skills.yml"
