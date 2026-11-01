@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "skills/**"
+      - "index.html"
+      - "scripts/test_elora_landing.py"
       - "README.md"
       - "docs/DAILY_BUILD_LOG.md"
       - "scripts/validate_agent_skills.py"
@@ -14,6 +16,8 @@ on:
     branches: [main]
     paths:
       - "skills/**"
+      - "index.html"
+      - "scripts/test_elora_landing.py"
       - "README.md"
       - "docs/DAILY_BUILD_LOG.md"
       - "scripts/validate_agent_skills.py"

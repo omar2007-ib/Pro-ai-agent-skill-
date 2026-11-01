@@ -14,7 +14,7 @@
     h1{font-size:clamp(3rem,8vw,6.2rem);line-height:.98;letter-spacing:-.065em;margin:25px 0}h1 em{font-style:normal;color:var(--accent)}.lead{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--muted);max-width:640px}.actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}.btn{padding:12px 19px;border-radius:12px;font-weight:700;border:1px solid var(--line);transition:transform .2s,border-color .2s}.btn:hover{transform:translateY(-2px);border-color:var(--accent)}.primary{background:var(--accent2);color:#1a1227;border-color:transparent}
     .section{padding:48px 0 80px}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}.section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.04em;margin:0}.section-head p{color:var(--muted);margin:0;max-width:440px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#211a2d,#17121f);min-height:210px}.icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#b69aff18;color:var(--accent2);font-size:1.2rem}.card h3{margin:18px 0 8px;font-size:1.15rem}.card p{margin:0;color:var(--muted);font-size:.95rem}.status{display:inline-block;margin-top:18px;color:#c8b5ff;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
     .manifesto{border:1px solid var(--line);border-radius:22px;padding:32px;background:#ffffff05}.manifesto p{font-size:1.1rem;color:var(--muted);max-width:800px;margin:10px 0 0}.footer{border-top:1px solid #ffffff16;padding:25px 0;color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    @media(max-width:760px){.navlinks{gap:12px}.navlinks a:nth-child(2),.navlinks a:nth-child(3){display:none}.hero{padding:75px 0 60px}.grid{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:10px}.card{min-height:0}}
+    @media(max-width:760px){.nav{position:relative}.menu-toggle{display:inline-flex;align-items:center;justify-content:center}.navlinks{display:none;position:absolute;z-index:5;top:calc(100% + 10px);right:0;left:0;flex-direction:column;gap:0;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:0 16px 36px #0008}.navlinks.is-open{display:flex}.navlinks a{padding:12px;border-radius:8px}.navlinks a:hover{background:#ffffff0c}.hero{padding:75px 0 60px}.grid{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:10px}.card{min-height:0}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
   </style>
 </head>
@@ -22,7 +22,8 @@
   <header class="wrap">
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#" aria-label="ELORA AI home">ELORA<span>AI</span></a>
-      <div class="navlinks"><a href="#capabilities">Capabilities</a><a href="#approach">Our approach</a><a href="mailto:owner@elora.ai">Contact</a></div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">Menu</button>
+      <div class="navlinks" id="primary-navigation"><a href="#capabilities">Capabilities</a><a href="#approach">Our approach</a><a href="mailto:owner@elora.ai">Contact</a></div>
     </nav>
     <main>
       <section class="hero">
@@ -45,6 +46,26 @@
     </main>
     <footer class="footer"><span>© <span id="year">2026</span> ELORA AI</span><span>Built with intention. Designed for what’s next.</span></footer>
   </header>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const primaryNavigation = document.getElementById("primary-navigation");
+    function setMenuOpen(open) {
+      primaryNavigation.classList.toggle("is-open", open);
+      menuToggle.setAttribute("aria-expanded", String(open));
+    }
+    menuToggle.addEventListener("click", () => {
+      setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
+    });
+    primaryNavigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) setMenuOpen(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuToggle.focus();
+      }
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
