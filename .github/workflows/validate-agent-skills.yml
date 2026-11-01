@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "skills/**"
+      - "index.html"
+      - "scripts/test_elora_landing.py"
       - "README.md"
       - "docs/DAILY_BUILD_LOG.md"
       - "scripts/validate_agent_skills.py"
@@ -36,5 +38,7 @@ jobs:
           python-version: "3.12"
       - name: Run validator unit tests
         run: python -m unittest discover -s scripts -p "test_*.py"
+      - name: Test ELORA AI landing-page navigation
+        run: python -m unittest discover -s scripts -p "test_elora_landing.py"
       - name: Validate all repository skills
         run: python scripts/validate_agent_skills.py
