@@ -53,3 +53,14 @@ Use this log to avoid repeating work across scheduled portfolio runs. Keep entri
 - **Verification:** added five dependency-free Python HTML/navigation regression tests to CI. Source was reviewed after editing; local execution and browser/device testing were not available through the GitHub connector. Await PR Actions result before claiming test pass.
 - **Scope/blockers:** ProductOS currently resolves to TITO, not ELORA AI; no ELORA AI preview was edited. Figma design-edit permission was not confirmed. No authentication, owner dashboard, Supabase, secrets, or deployment were changed. This repository contains an ELORA AI landing-page artifact, not a confirmed full private AI OS implementation.
 - **Next distinct task:** inspect the actual ELORA AI owner/admin access implementation only after its correct repository/runtime is identified; do not infer platform code from this landing-page repository.
+
+
+
+## 2026-11-01 — ELORA AI navigation CI repair
+
+- **Selected task:** diagnose and repair the failing CI run for the mobile-navigation PR.
+- **Root cause:** the HTML test parser kept collecting links after leaving the primary navigation, so it counted two additional page links and failed the expected three-link assertion.
+- **Changed paths:** `scripts/test_elora_landing.py`, `.github/workflows/validate-agent-skills.yml`.
+- **Implemented:** scope link collection to the labelled primary `nav` element and stop at its closing tag; add both the landing page and its regression test to pull-request path filters; remove a redundant second test invocation because the existing `test_*.py` discovery already includes it.
+- **Verification:** previous GitHub Actions run failed at this exact assertion (12 tests, 1 failure); awaiting a new run on the updated PR before claiming the repair is green. No browser/device E2E or deployment is claimed.
+- **Next distinct task:** review and improve one separate project feature after this CI result is known; do not repeat the mobile-navigation work.
