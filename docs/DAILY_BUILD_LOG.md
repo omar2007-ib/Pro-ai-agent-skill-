@@ -64,3 +64,6 @@ Use this log to avoid repeating work across scheduled portfolio runs. Keep entri
 - **Implemented:** scope link collection to the labelled primary `nav` element and stop at its closing tag; add both the landing page and its regression test to pull-request path filters; remove a redundant second test invocation because the existing `test_*.py` discovery already includes it.
 - **Verification:** previous GitHub Actions run failed at this exact assertion (12 tests, 1 failure); awaiting a new run on the updated PR before claiming the repair is green. No browser/device E2E or deployment is claimed.
 - **Next distinct task:** review and improve one separate project feature after this CI result is known; do not repeat the mobile-navigation work.
+
+
+- **Follow-up CI diagnosis:** the first parser correction still included the brand link inside the outer `nav`. Link collection is now scoped to the `#primary-navigation` container itself; the second CI run exposed this remaining test-boundary mistake (12 tests, 1 failure). Awaiting the next run.
