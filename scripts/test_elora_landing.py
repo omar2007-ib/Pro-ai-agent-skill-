@@ -25,13 +25,13 @@ class LandingParser(HTMLParser):
             self.menu_button = attrs
         if tag == "div" and attrs.get("id") == "primary-navigation":
             self.navigation = attrs
-        if tag == "nav" and attrs.get("aria-label") == "Main navigation":
+        if tag == "div" and attrs.get("id") == "primary-navigation":
             self.in_primary_navigation = True
         if tag == "a" and self.in_primary_navigation:
             self.links.append(attrs)
 
     def handle_endtag(self, tag):
-        if tag == "nav" and self.in_primary_navigation:
+        if tag == "div" and self.in_primary_navigation:
             self.in_primary_navigation = False
 
 
