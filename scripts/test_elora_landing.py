@@ -15,6 +15,7 @@ class LandingParser(HTMLParser):
         self.menu_button = None
         self.navigation = None
         self.links = []
+        self.in_primary_navigation = False
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -24,8 +25,14 @@ class LandingParser(HTMLParser):
             self.menu_button = attrs
         if tag == "div" and attrs.get("id") == "primary-navigation":
             self.navigation = attrs
-        if tag == "a" and self.navigation is not None:
+        if tag == "nav" and attrs.get("aria-label") == "Main navigation":
+            self.in_primary_navigation = True
+        if tag == "a" and self.in_primary_navigation:
             self.links.append(attrs)
+
+    def handle_endtag(self, tag):
+        if tag == "nav" and self.in_primary_navigation:
+            self.in_primary_navigation = False
 
 
 class ResponsiveNavigationTests(unittest.TestCase):
